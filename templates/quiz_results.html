@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Tablica wyników{% endblock %}
+{% block content %}
+<div class="container mt-5 text-white">
+    <h1 class="mb-4">Twoje wyniki quizu:</h1>
+    <h2 class="mb-4">Liczba punktów: {{ user_score }}</h2>
+
+    <h1 class="mb-4">Ranking użytkowników:</h1>
+    <ol class="list-group">
+        {% for user_score in user_scores %}
+            <li class="list-group-item">{{ user_score.username }} - {{ user_score.score }}</li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

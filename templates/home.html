@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Strona głowna{% endblock %}
+
+{% block content %}
+<div class="container home-page text-center">
+    <div class="row my-5">
+        <div class="col-lg-12 d-flex justify-content-center"> 
+            <div class="border-2 w-75">
+                <h1 class="text-white py-2">Cześć, {{ session.username }}!</h1>
+                <h2 class="text-white py-2">"Rozwój AI w Pythonie"</h2>
+                <h3 class="text-white py-2">Twoje punkty z quizu: {{ total_points }}</h3>
+                <a type="button" class="btn btn-success btn-lg" href="{{ url_for('quiz') }}">Graj ponownie!</a>
+            </div>
+        </div>        
+    </div>
+        <div class="row justify-content-center border-2">            
+            <div class="col-lg-6 col-sm-12">
+                <h2 class="mt-4 text-white">Prognoza pogody</h2>
+                <form action="/" method="get" class="mt-3">
+                    <div class="input-group">
+                        <input type="text" id="city" name="city" class="form-control" placeholder="Wpisz miasto" required>
+                        <button type="submit" class="btn btn-primary">Sprawdź pogodę</button>
+                    </div>
+                </form>
+            </div>
+
+        {% if weather %}
+
+        <div class="col-lg-12">
+            <h2 class="text-white py-3">{{ weather.city }}</h2>
+            <div class="row">
+                {% for forecast in weather.forecasts %}
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ forecast.day_name }}</h5>
+                            <img src="{{ forecast.icon_url }}" alt="Weather Icon">
+                            <p class="card-text">Temperatura w dzień: {{ forecast.temp_day }}°C</p>
+                            <p class="card-text">Temperatura w nocy: {{ forecast.temp_night }}°C</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% if weather.error_message %}
+                <h3 class="text-white"> {{ weather.error_message }} </h3>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

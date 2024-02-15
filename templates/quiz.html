@@ -1,0 +1,22 @@
+<!-- quiz.html -->
+{% extends 'base.html' %}
+{% block title %}Czas na quiz!{% endblock %}
+{% block content %}
+<div class="container ">
+    <h1 class="mt-5 text-white" >Quiz "Rozwój AI w Pythonie"</h1>
+    <p class="lead text-white">Twój łączny wynik: {{ score }}</p>
+    <form action="{{ url_for('quiz') }}" method="POST">
+        <div class="card">
+            <div class="card-body">        
+                <p>{{ question.question }}</p>
+                <input type="hidden" name="question" value="{{ question.question }}">
+                {% for option in question.options %}
+                <input class="form-check-input my-2" type="radio" name="answer" value="{{ option }}"> {{ option }}<br>
+                {% endfor %}
+                <input type="hidden" name="correct_answer" value="{{ question.answer }}">
+                <button type="submit" class="btn btn-success btn-lg mt-3">Wyślij</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
