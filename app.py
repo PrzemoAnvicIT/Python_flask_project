@@ -31,10 +31,10 @@ def home():
 
     user = User.query.filter_by(username=session['username']).first()
     total_points = get_user_score(user.id)
-
+    dzisiaj = datetime.today().strftime('%d %B %Y')
     weather = get_weather()
 
-    return render_template('home.html', total_points=total_points, weather=weather)
+    return render_template('home.html', total_points=total_points, weather=weather, dzisiaj=dzisiaj)
 
 @app.route('/weather')
 def get_weather():
